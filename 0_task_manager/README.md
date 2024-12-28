@@ -93,6 +93,6 @@ mypy src
 
 ## 联系方式
 
-作者 - [@yourusername](https://github.com/yourusername)
+作者 - [@jcfszxc](https://github.com/jcfszxc)
 
-项目链接: [https://github.com/yourusername/task-manager](https://github.com/yourusername/task-manager)
+项目链接: [https://github.com/jcfszxc/jcfszxc](https://github.com/jcfszxc/jcfszxc)
