@@ -1,2 +1,0 @@
-[console_scripts]
-task-manager = src.main:main
