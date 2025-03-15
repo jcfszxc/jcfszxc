@@ -4,7 +4,7 @@
 # @Author        : jcfszxc
 # @Email         : jcfszxc.ai@gmail.com
 # @File          : main.py
-# @Description   : 
+# @Description   : 程序主入口文件，负责初始化应用程序和启动用户界面
 
 import sys
 from PyQt5.QtWidgets import QApplication

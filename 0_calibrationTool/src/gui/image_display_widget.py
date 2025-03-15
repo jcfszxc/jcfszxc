@@ -4,7 +4,7 @@
 # @Author        : jcfszxc
 # @Email         : jcfszxc.ai@gmail.com
 # @File          : image_display_widget.py
-# @Description   :
+# @Description   : 该模块实现了图像显示组件，为用户界面提供图像展示、鼠标事件处理和放大镜功能
 
 
 import numpy as np

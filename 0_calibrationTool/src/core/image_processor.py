@@ -4,7 +4,7 @@
 # @Author        : jcfszxc
 # @Email         : jcfszxc.ai@gmail.com
 # @File          : image_processor.py
-# @Description   : 
+# @Description   : 该模块提供图像处理功能，主要用于在图像上绘制和显示标定特征点
 
 
 from typing import List, Tuple, Optional

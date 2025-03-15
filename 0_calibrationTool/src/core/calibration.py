@@ -1,6 +1,16 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# @Time          : 2025/03/15 18:21
+# @Author        : jcfszxc
+# @Email         : jcfszxc.ai@gmail.com
+# @File          : calibration.py
+# @Description   : 该模块实现图像标定处理核心功能，包括单应性矩阵计算、矩阵格式化和变换验证
+
+
+
 import numpy as np
 import cv2
-from typing import List, Tuple, Optional
+from typing import List, Tuple
 
 class CalibrationProcessor:
     """处理图像标定和矩阵计算的类"""
@@ -9,9 +19,12 @@ class CalibrationProcessor:
     def calculate_homography_matrix(
         src_points: List[Tuple[float, float]],
         dst_points: List[Tuple[float, float]]
-    ) -> Optional[np.ndarray]:
+    ) -> np.ndarray:
+        # 默认返回单位矩阵作为标准H（恒等变换）
+        default_H = np.eye(3, dtype=np.float32)
+        
         if len(src_points) < 4 or len(src_points) != len(dst_points):
-            return None
+            return default_H
             
         src_points_arr = np.float32(src_points)
         dst_points_arr = np.float32(dst_points)
@@ -25,13 +38,17 @@ class CalibrationProcessor:
             confidence=0.95,  # 提高置信度
         )
         
+        # 检查H是否为None
+        if H is None:
+            return default_H
+            
         # 检查内点比例
         if mask is not None:
             inlier_ratio = np.sum(mask) / len(mask)
             if inlier_ratio < 0.6:  # 如果内点比例太低，认为结果不可靠
-                return None
+                return default_H
         
-        return H if H is not None else None
+        return H
         
     @staticmethod
     def format_matrix(matrix: np.ndarray) -> dict:
@@ -43,9 +60,6 @@ class CalibrationProcessor:
         Returns:
             格式化后的矩阵字典
         """
-        if matrix is None:
-            return {"registration_h": None}
-            
         # 将矩阵转换为指定格式的列表
         formatted_matrix = [
             [float(value) for value in row]
@@ -64,7 +78,7 @@ class CalibrationProcessor:
         dst_points: List[Tuple[float, float]],
         threshold: float = 8.0
     ) -> Tuple[bool, float]:
-        if H is None or not src_points or not dst_points:
+        if not src_points or not dst_points:
             return False, float('inf')
             
         src_points = np.float32(src_points)
@@ -97,7 +111,7 @@ class CalibrationProcessor:
         
         # 使用中位数绝对偏差(MAD)来检测和过滤异常值
         mad = np.median(np.abs(errors - np.median(errors)))
-        modified_z_scores = 0.6745 * (errors - np.median(errors)) / mad
+        modified_z_scores = 0.6745 * (errors - np.median(errors)) / (mad + 1e-10)
         valid_errors = errors[np.abs(modified_z_scores) < 3.5]
         
         if len(valid_errors) < len(errors) * 0.7:  # 如果太多点被识别为异常值

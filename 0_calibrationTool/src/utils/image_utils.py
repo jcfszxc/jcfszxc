@@ -4,7 +4,7 @@
 # @Author        : jcfszxc
 # @Email         : jcfszxc.ai@gmail.com
 # @File          : image_utils.py
-# @Description   : 
+# @Description   : 该模块提供通用图像处理工具函数，包括读取图像、色彩空间转换、图像尺寸调整和显示处理
 
 from typing import Tuple
 

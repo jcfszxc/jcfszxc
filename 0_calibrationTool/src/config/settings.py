@@ -4,7 +4,7 @@
 # @Author        : jcfszxc
 # @Email         : jcfszxc.ai@gmail.com
 # @File          : settings.py
-# @Description   : 
+# @Description   : 该模块定义了可见光-红外图像标定工具的配置类，包括GUI界面设置和图像处理参数
 
 
 
