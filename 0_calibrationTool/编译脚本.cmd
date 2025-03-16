@@ -1,0 +1,1 @@
+pyinstaller --name=CalibrationTool --onefile --windowed --add-data "src/config;config" --add-data "src/gui;gui" --add-data "src/utils;utils" --add-data "src/core;core" --hidden-import=numpy --hidden-import=cv2 src/main.py
